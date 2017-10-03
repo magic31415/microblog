@@ -27,7 +27,8 @@ defmodule MicroblogWeb.MessageController do
 
   def show(conn, %{"id" => id}) do
     message = Social.get_message!(id)
-    render(conn, "show.html", message: message)
+    owner = Social.get_user!(Social.get_message!(id).user_id)
+    render(conn, "show.html", message: message, owner: owner)
   end
 
   def edit(conn, %{"id" => id}) do

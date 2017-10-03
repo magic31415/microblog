@@ -1,0 +1,61 @@
+<h2>Show User</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+  	<strong>Following:</strong>
+  	<table>
+	  	<%= for follow <- @follows do %>
+	  		<%= if follow.follower_id == @user.id do %>
+	  			<td class="follow-name"><%= Microblog.Social.get_user!(follow.followee_id).name %></td>
+	  			<td><%= link "Unfollow",
+	  							to: follow_path(@conn, :delete, follow),
+	  							method: :delete,
+	  							class: "btn btn-danger" %></td>
+	  		<% end %>
+	  	<% end %>
+	  </table>
+  </li>
+
+  <li>
+  	<strong>Followers:</strong>
+  	<ul>
+	  	<%= for follow <- @follows do %>
+	  		<%= if follow.followee_id == @user.id do %>
+	  			<li><%= Microblog.Social.get_user!(follow.follower_id).name %></li>
+	  		<% end %>
+	  	<% end %>
+	  </ul>
+  </li>
+</ul>
+
+<!-- And not already following -->
+<%= if @current_user != nil and @user.id != @current_user.id do %>
+	<%= form_for @follow, follow_path(@conn, :create), fn f -> %>
+	  <%= if @follow.action do %>
+	    <div class="alert alert-danger">
+	      <p>Oops, something went wrong! Please check the errors below.</p>
+	    </div>
+	  <% end %>
+
+	  <%= hidden_input f, :follower_id, value: @current_user.id %>
+	  <%= hidden_input f, :followee_id %>
+
+	  <div class="form-group">
+	    <%= submit "Follow #{@user.name}", class: "btn btn-primary" %>
+	  </div>
+	<% end %>
+<% end %>
+
+<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
+<span><%= link "Back", to: user_path(@conn, :index) %></span>
