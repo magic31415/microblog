@@ -1,8 +1,50 @@
-<h2>Show Message</h2>
+<div class="media row pb-3 pt-3 ml-3">
+  <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture") %>
+  <span class="message-text ml-3">
+    <%= link Microblog.Social.get_user!(@message.user_id).name,
+        to: user_path(@conn, :show, @message.user_id) %>
+    <div><%= @message.content %></div>
+  </span>
+</div>
 
-<p><strong><%= @owner.name %></strong>: <%= @message.content %></p>
+<!-- From lecture notes -->
+<div id="message-likes"
+     data-path="<%= like_path(@conn, :index) %>"
+     data-message_id="<%= @message.id %>">
+  &nbsp;
+</div>
 
-<%= if @current_user != nil and @owner.id == @current_user.id do %>
-	<span><%= link "Edit", to: message_path(@conn, :edit, @message) %></span>
+<script id="likes-template" type="text/x-handlebars-template">
+  <div class="m-2 pb-3">
+    {{#each data}}
+    <h6>{{user_name}} likes this.</h6>
+    {{else}}
+    <p>No likes yet.</p>
+    {{/each}}
+  </div>
+</script>
+
+<%= if @current_user do %>
+  <%= if Microblog.Social.is_liked(@current_user.id, @message.id) do %>
+    <div class="m-2">
+      <button id="like-button" class="btn btn-primary"
+              data-user-id="<%= @current_user.id %>">Like</button>
+    </div>
+	<% else %>
+    <!-- Unlike Button -->
+	<% end %>
+
+  <span>
+    <%= link "View All Messages", to: message_path(@conn, :index), class: "btn btn-secondary mr-2" %>
+  </span>
+
+	<%= if @owner.id == @current_user.id do %>
+		<span>
+      <%= link "Edit Message", to: message_path(@conn, :edit, @message), class: "btn btn-warning mr-2" %>
+    </span>
+    <span>
+      <%= link "Delete Message", to: message_path(@conn, :delete, @message), method: :delete,
+          data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+    </span>
+	<% end %>
 <% end %>
-<span><%= link "Back", to: message_path(@conn, :index) %></span>

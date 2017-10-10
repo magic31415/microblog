@@ -1,43 +1,32 @@
-<h2>Show User</h2>
+<h2><%= @user.name %></h2>
+<h4 class="pb-3"><%= @user.email %></h4>
 
-<ul>
+<strong>Following:</strong>
+<%= for follow <- @follows do %>
+	<%= if follow.follower_id == @user.id do %>
+		<div class="follow-name mb-3">
+			<%= link Microblog.Social.get_user!(follow.followee_id).name,
+					to: user_path(@conn, :show, follow.followee_id) %>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </li>
+			<%= if @user.id == @current_user.id do %>
+		  	<span class="ml-2">
+		  		<%= link "Unfollow", to: follow_path(@conn, :delete, follow), method: :delete, class: "btn btn-outline-secondary" %>
+		  	</span>
+		  <% end %>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
+	  </div>
+	<% end %>
+<% end %>
 
-  <li>
-  	<strong>Following:</strong>
-  	<table>
-	  	<%= for follow <- @follows do %>
-	  		<%= if follow.follower_id == @user.id do %>
-	  			<td class="follow-name"><%= Microblog.Social.get_user!(follow.followee_id).name %></td>
-	  			<td><%= link "Unfollow",
-	  							to: follow_path(@conn, :delete, follow),
-	  							method: :delete,
-	  							class: "btn btn-danger" %></td>
-	  		<% end %>
-	  	<% end %>
-	  </table>
-  </li>
-
-  <li>
-  	<strong>Followers:</strong>
-  	<ul>
-	  	<%= for follow <- @follows do %>
-	  		<%= if follow.followee_id == @user.id do %>
-	  			<li><%= Microblog.Social.get_user!(follow.follower_id).name %></li>
-	  		<% end %>
-	  	<% end %>
-	  </ul>
-  </li>
-</ul>
+<strong>Followers:</strong>
+<%= for follow <- @follows do %>
+	<%= if follow.followee_id == @user.id do %>
+	  <div class="follow-name mb-3">
+	  	<%= link Microblog.Social.get_user!(follow.follower_id).name,
+	  			to: user_path(@conn, :show, follow.follower_id) %>
+	  </div>
+	<% end %>
+<% end %>
 
 <!-- And not already following -->
 <%= if @current_user != nil and @user.id != @current_user.id do %>
@@ -57,5 +46,12 @@
 	<% end %>
 <% end %>
 
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<%= if @user.id == @current_user.id do %>
+	<%= link "View All Users", to: user_path(@conn, :index), class: "btn btn-secondary mr-2" %>
+	<%= link "Edit Profile", to: user_path(@conn, :edit, @user), class: "btn btn-warning mr-2" %>
+	<%= link "Destroy Account",
+						to: user_path(@conn, :delete, @user),
+						method: :delete,
+						data: [confirm: "Are you sure?"],
+						class: "btn btn-danger" %>
+<% end %>

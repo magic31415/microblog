@@ -56,7 +56,6 @@ defmodule MicroblogWeb.FollowController do
     follow = Microblog.Repo.preload(follow, :followee)
     conn
     |> put_flash(:info, "You are no longer following #{follow.followee.name}.")
-    #|> redirect(to: user_path(conn, :show, current_user))
     |> redirect(to: NavigationHistory.last_path(conn, default: user_path(conn, :index)))
   end
 end

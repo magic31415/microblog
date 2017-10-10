@@ -6,7 +6,8 @@ defmodule MicroblogWeb.MessageController do
 
   def index(conn, _params) do
     messages = Social.list_messages()
-    render(conn, "index.html", messages: messages)
+    likes = Social.list_likes()
+    render(conn, "index.html", messages: messages, likes: likes)
   end
 
   def new(conn, _params) do

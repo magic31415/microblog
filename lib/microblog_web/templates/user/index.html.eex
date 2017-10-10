@@ -1,26 +1,16 @@
-<h2>Listing Users</h2>
+<h2>Microblog Users</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="row">
+  <%= for user <- @users do %>
+    <div class="col-sm-3">
+      <div class="card m-2">
+        <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture-medium") %>
+        <div class="card-body">
+          <h4 class="card-title center">
+            <%= link user.name, to: user_path(@conn, :show, user) %>
+          </h4>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

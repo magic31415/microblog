@@ -1,29 +1,24 @@
-<h2>Listing Messages</h2>
+<h2 class="pb-3 pt-3">Microblog Messages</h2>
 
 <%= for message <- @messages do %>
-  <p>
-    <span class="message-text"><strong><%= Microblog.Social.get_user!(message.user_id).name %></strong>:
-    <%= message.content %></span>
+  <div class="media row mb-3 pb-5 pl-3">
+    <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture") %>
+    <span class="message-text ml-3">
+      <%= link Microblog.Social.get_user!(message.user_id).name,
+          to: user_path(@conn, :show, message.user_id) %>
+      <div><%= message.content %></div>
 
-    <span>
-      <%= link "Show", to: message_path(@conn, :show, message), class: "btn btn-default btn-xs" %>
+      <%= for like <- @likes do %>
+        <%= if like.message_id == message.id do %>
+          <div class="like-text"><%= Microblog.Social.get_user!(like.user_id).name %> likes this.</div>
+        <% end %>
+      <% end %>
+
+      <%= link "View Message", to: message_path(@conn, :show, message), class: "btn btn-primary" %>
     </span>
-    
-    <%= if @current_user != nil and @current_user.id == message.user_id do %>
-      <span>
-        <%= link "Edit", to: message_path(@conn, :edit, message), class: "btn btn-default btn-xs" %>
-      </span>
-      <span>
-        <%= link "Delete",
-            to: message_path(@conn, :delete, message), 
-            method: :delete,
-            data: [confirm: "Are you sure?"], 
-            class: "btn btn-danger btn-xs" %>
-      </span>
-    <% end %>
-  </p>
+  </div>
 <% end %>
 
 <%= if @current_user do %>
-  <span><%= link "New Message", to: message_path(@conn, :new) %></span>
+  <span><%= link "Post New Message", to: message_path(@conn, :new), class: "btn btn-success" %></span>
 <% end %>
