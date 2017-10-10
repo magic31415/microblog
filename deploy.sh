@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Influenced by the nu_mart deploy script and deployment lecture notes
+
 echo "Beginning Deploy"
 
 git pull
