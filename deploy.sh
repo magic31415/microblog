@@ -4,7 +4,7 @@ echo "Beginning Deploy"
 
 git pull
 mix deps.get
-mix etco.migrate
+mix ecto.migrate
 
 (cd assets && npm install)
 (cd assets && ./node_modules/brunch/bin/brunch b -p)
@@ -22,4 +22,3 @@ tar xzvf microblog.tar.gz
 
 ./bin/microblog stop || true
 PORT=8000 ./bin/microblog start
-
