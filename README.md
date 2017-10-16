@@ -1,7 +1,7 @@
 # microblog
 
 http://microblog.cs4550max.xyz
-https://github.com/magic31415/cs4550
+https://github.com/magic31415/microblog
 
 Logging in allows you to post messages, edit and delete your messages, and follow other people. Without logging in you can only view messages and users.
 

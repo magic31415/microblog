@@ -14,6 +14,6 @@
 
   <div class="form-group">
     <%= link "Cancel", to: message_path(@conn, :index), class: "btn btn-secondary" %>
-    <%= submit "Post My Message!", class: "btn btn-success" %>
+    <%= submit "Post My Message!", class: "btn btn-success", id: "post-msg-btn" %>
   </div>
 <% end %>
