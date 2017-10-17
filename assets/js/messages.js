@@ -11,6 +11,7 @@ function message_init() {
 
 	chan.on("message", got_message);
   
+  // From class notes
   if ($('body').data('page') != "MessageView/index") {
 		return;
 	}
