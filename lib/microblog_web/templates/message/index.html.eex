@@ -1,5 +1,7 @@
 <h2 class="pb-3 pt-3">Microblog Messages</h2>
 
+<div id="new-messages"></div>
+
 <%= for message <- @messages do %>
   <div class="media row mb-3 pb-5 pl-3">
     <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture") %>

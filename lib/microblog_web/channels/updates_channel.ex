@@ -15,10 +15,10 @@ defmodule MicroblogWeb.UpdatesChannel do
   #   {:reply, {:ok, payload}, socket}
   # end
 
-  def handle_in("message", payload, socket) do
-    broadcast! socket, "message", payload
-    {:noreply, socket}
-  end
+  # def handle_in("message", payload, socket) do
+  #   broadcast! socket, "message", payload
+  #   {:noreply, socket}
+  # end
 
   # def handle_in("message", %{"user_id" => user_id, "content" => content}, socket) do
   #   broadcast! socket, "message", %{user_id: user_id, content: content}
