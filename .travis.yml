@@ -1,9 +1,9 @@
 # From numart
 language: elixir
 elixir:
-  - 1.5.2
+  - 1.5.1
 otp_release:
-  - 20.1
+  - 20.0.5
 before_script:
   - psql -U postgres -c "CREATE USER microblog WITH PASSWORD 'Ephohl3Uco';"
   - psql -U postgres -c "CREATE DATABASE microblog_test;"
