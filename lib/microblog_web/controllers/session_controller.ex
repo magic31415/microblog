@@ -6,18 +6,18 @@
 defmodule MicroblogWeb.SessionController do
   use MicroblogWeb, :controller
 
-  def login(conn, %{"email" => email}) do
-    user = Microblog.Social.get_user_by_email(email)
+  def login(conn, %{"email" => email, "password" => password}) do
+    user = Microblog.Social.User.get_and_auth_user(email, password)
 
     if user do
       conn
       |> put_session(:user_id, user.id)
-      |> put_flash(:info, "Logged in as #{user.email}")
+      |> put_flash(:info, "Logged in as #{user.name}")
       |> redirect(to: message_path(conn, :index))
     else
       conn
       |> put_session(:user_id, nil)
-      |> put_flash(:error, "No such user")
+      |> put_flash(:error, "Bad email and password combination.")
       |> redirect(to: message_path(conn, :index))
     end
   end
@@ -26,6 +26,6 @@ defmodule MicroblogWeb.SessionController do
     conn
     |> put_session(:user_id, nil)
     |> put_flash(:info, "Logged out.")
-    |> redirect(to: message_path(conn, :index))
+    |> redirect(to: page_path(conn, :index))
   end
 end

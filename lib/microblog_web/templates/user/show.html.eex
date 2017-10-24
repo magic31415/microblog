@@ -18,6 +18,8 @@
 	<% end %>
 <% end %>
 
+<br />
+
 <strong>Followers:</strong>
 <%= for follow <- @follows do %>
 	<%= if follow.followee_id == @user.id do %>
@@ -28,12 +30,11 @@
 	<% end %>
 <% end %>
 
-<!-- And not already following -->
-<%= if @current_user != nil and @user.id != @current_user.id do %>
+<%= if @followable do %>
 	<%= form_for @follow, follow_path(@conn, :create), fn f -> %>
 	  <%= if @follow.action do %>
 	    <div class="alert alert-danger">
-	      <p>Oops, something went wrong! Please check the errors below.</p>
+	      <p>Unable to follow. Please try again later.</p>
 	    </div>
 	  <% end %>
 
@@ -43,15 +44,15 @@
 	  <div class="form-group">
 	    <%= submit "Follow #{@user.name}", class: "btn btn-primary" %>
 	  </div>
-	<% end %>
 <% end %>
 
-<%= if @user.id == @current_user.id do %>
-	<%= link "View All Users", to: user_path(@conn, :index), class: "btn btn-secondary mr-2" %>
-	<%= link "Edit Profile", to: user_path(@conn, :edit, @user), class: "btn btn-warning mr-2" %>
-	<%= link "Destroy Account",
-						to: user_path(@conn, :delete, @user),
-						method: :delete,
-						data: [confirm: "Are you sure?"],
-						class: "btn btn-danger" %>
+	<%= if @user.id == @current_user.id do %>
+		<%= link "View All Users", to: user_path(@conn, :index), class: "btn btn-secondary mr-2" %>
+		<%= link "Edit Profile", to: user_path(@conn, :edit, @user), class: "btn btn-warning mr-2" %>
+		<%= link "Destroy Account",
+							to: user_path(@conn, :delete, @user),
+							method: :delete,
+							data: [confirm: "Are you sure?"],
+							class: "btn btn-danger" %>
+	<% end %>
 <% end %>

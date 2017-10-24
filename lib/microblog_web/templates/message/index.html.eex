@@ -1,26 +1,28 @@
-<h2 class="pb-3 pt-3">Microblog Messages</h2>
+<h2 class="pb-3 pt-3">Your Feed</h2>
+
+<%= render "form.html", Map.merge(assigns, %{action: message_path(@conn, :create), changeset: @changeset}) %>
 
 <div id="new-messages"></div>
 
 <%= for message <- @messages do %>
-  <div class="media row mb-3 pb-5 pl-3">
-    <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture") %>
-    <span class="message-text ml-3">
-      <%= link Microblog.Social.get_user!(message.user_id).name,
-          to: user_path(@conn, :show, message.user_id) %>
-      <div><%= message.content %></div>
+  <%= if message.user_id == @current_user.id
+        || Microblog.Social.get_follow_by_ids(@current_user.id, message.user_id) do %>
+    <div class="media row mb-3 pb-5 pl-3">
+      <%= img_tag(static_path(@conn, "/images/northeastern-logo.jpg"), class: "profile-picture") %>
+      <span class="message-text ml-3">
+        <%= link Microblog.Social.get_user!(message.user_id).name,
+            to: user_path(@conn, :show, message.user_id) %>
+        <div><%= message.content %></div>
+        <%# Regex.replace(~r/#\w+/, message.content, "<a href=\"\">\\0</a>") %>
 
-      <%= for like <- @likes do %>
-        <%= if like.message_id == message.id do %>
-          <div class="like-text"><%= Microblog.Social.get_user!(like.user_id).name %> likes this.</div>
+        <%= for like <- @likes do %>
+          <%= if like.message_id == message.id do %>
+            <div class="like-text"><%= Microblog.Social.get_user!(like.user_id).name %> likes this.</div>
+          <% end %>
         <% end %>
-      <% end %>
 
-      <%= link "View Message", to: message_path(@conn, :show, message), class: "btn btn-primary" %>
-    </span>
-  </div>
-<% end %>
-
-<%= if @current_user do %>
-  <span><%= link "Post New Message", to: message_path(@conn, :new), class: "btn btn-success" %></span>
+        <%= link "View Message", to: message_path(@conn, :show, message), class: "btn btn-primary" %>
+      </span>
+    </div>
+  <% end %>
 <% end %>

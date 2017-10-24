@@ -4,39 +4,37 @@ HW06 status report form.
 
 Please answer the following questions and submit the filled-in file to Bottlenose.
 
-
 1. What's your name?
 
-Max Corwin
+	Max Corwin
 
 2. What's the link to your Github repo's releases page?
 
-####
+	https://github.com/magic31415/microblog/releases/tag/HW06
 
 3. What's the link to your deployed Microblog app?
 
-http://microblog.cs4550max.xyz/messages
+	http://microblog.cs4550max.xyz/messages
 
 4. What's the link to the Travis CI build for the version of your app
    that you made a release of? You can find this on Travis under "Build History".
 
-####
+	https://travis-ci.org/magic31415/microblog/builds/289134568
 
 5. Did you successfully deploy? If not, what doesn't work?
 
-####
+	Yes
 
 6. Did you successfully implement live updates? If not, what doesn't work?
 
-Yes, for updates:all
-
+	Yes
 
 7. Did Prof. Tuck give you any alternate / additional goals for this assignment?
    If so, what were they and how well did you complete them with your submission?
 
-No
+	No
 
 8. Is there any other useful information that you want to provide for grading?
 
-####
+	No
 

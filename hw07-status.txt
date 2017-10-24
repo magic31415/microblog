@@ -1,0 +1,88 @@
+CS4550 Web Dev, Fall 2017.
+
+HW07 status report form.
+
+Please answer the following questions and submit the filled-in file 
+to Bottlenose.
+
+
+1. What's your name?
+
+- Max Corwin
+
+2. What's the link to your Github repo's releases page?
+
+????????????????????????
+
+3. What's the link to your deployed Microblog app?
+
+- https://microblog.cs4550max.xyz
+
+4. Did you successfully deploy? If not, what doesn't work?
+
+- Yes
+
+5. Did you successfully implement passwords securely? If not, what 
+doesn't work?
+
+- Yes
+
+6. Did you successfully implement admin users? What paths are 
+admin-only? What paths are accessible to all users.
+
+- No
+
+7. What changes did you make to clean up your application layout and 
+navigation?
+
+- New landing page that makes log in / sign up prominent.
+
+- The only paths you can see/use without being logged in 
+  are the ones required for making new users.
+
+- Feed instead of index, only shows messages that you or one of your 
+  followers posted.
+
+- Sign up also logs you in; log in brings you to your feed.
+
+- Destroy account also logs you out.
+
+- No separate page for creating messages; 
+  this is part of the feed page.
+
+8. Did you complete any catch up tasks? Which ones? Is there 
+anything still not working about those features?
+
+- Everything working except Travis fails to build.
+
+9. Did you complete any additional tasks? Which ones? For each, 
+describe how it should work and how that differs from your deployed 
+functionality.
+
+- LetsEncrypt
+  All traffic forwards to HTTPS
+  Cron task for renewals
+
+- Bootstrap/CSS
+  Looks cleaner
+
+- Security
+  Added logic to User and Message controllers to prevent unauthorized
+  access. People without accounts can't do much (see question 7),
+  users cannot edit or delete other users or other users' messages
+
+- Follows
+  Now fully working, used to be able to follow people twice.
+  Feed page now only shows messages that you or one of your 
+  followers posted.
+
+A. Did you complete any bonus addtional goals for extra credit?
+For each, describe how it should work and how that differs from your 
+deployed functionality.
+
+ - No (unless the stuff that was already working counts as tasks)
+
+B. Is there any other useful information that you want to provide 
+for grading?
+
+- No

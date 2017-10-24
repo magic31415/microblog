@@ -16,10 +16,10 @@ alias Microblog.Social.Message
 alias Microblog.Social.Follow
 
 Repo.delete_all(User)
-Repo.insert!(%User{name: "Max Corwin", email: "maxcorwin@abc.com"})
-Repo.insert!(%User{name: "Bob Smith", email: "bobsmith@abc.com"})
+#Repo.insert!(%User{name: "Max Corwin", email: "maxcorwin@abc.com"})
+#Repo.insert!(%User{name: "Bob Smith", email: "bobsmith@abc.com"})
 
 Repo.delete_all(Message)
 Repo.delete_all(Follow)
-Repo.delete_all(Session)
+#Repo.delete_all(Session)
 

@@ -13,7 +13,6 @@
   <%= hidden_input f, :user_id, value: @current_user.id %>
 
   <div class="form-group">
-    <%= link "Cancel", to: message_path(@conn, :index), class: "btn btn-secondary" %>
-    <%= submit "Post My Message!", class: "btn btn-success", id: "post-msg-btn" %>
+    <%= submit "Post New Message", class: "btn btn-success", id: "post-msg-btn" %>
   </div>
 <% end %>
